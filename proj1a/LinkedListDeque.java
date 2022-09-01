@@ -23,18 +23,15 @@ public class LinkedListDeque<T> {
     /** Adds an item of type T to the front of the deque.*/
     public void addFirst(T item){
         size++;
-        IntNode p = sentinel;
-        p.next = new IntNode(sentinel, item, sentinel.next);
-        if(sentinel.next.next == sentinel){
-            sentinel.prev = sentinel.next;
-        }
+        sentinel.next = new IntNode(sentinel, item, sentinel.next);
+        sentinel.next.next.prev = sentinel.next;
+
     }
     /** Adds an item of type T to the back of the deque.*/
     public void addLast(T item) {
         size++;
-        IntNode p = sentinel.prev;
-        p.next = new IntNode(sentinel.prev, item, sentinel);
-        sentinel.prev = p.next;
+        sentinel.prev.next = new IntNode(sentinel.prev, item, sentinel);
+        sentinel.prev = sentinel.prev.next;
     }
     /** Returns true if deque is empty, false otherwise.*/
     public boolean isEmpty() {
