@@ -21,7 +21,7 @@ public class ArrayDeque<T> {
         nextFirst = minusOne(nextFirst);
 
     }
-    public void expand(){
+    private void expand(){
         T[] newArray = (T []) new Object[size * 2];
 
         int oldPtr = nextFirst;
@@ -49,7 +49,7 @@ public class ArrayDeque<T> {
 
     }
     /** Returns true if deque is full, false otherwise.*/
-    public boolean isFull() {
+    private boolean isFull() {
         if(size == items.length){
             return true;
         }else{
@@ -65,7 +65,7 @@ public class ArrayDeque<T> {
         }
     }
     /** Returns true if usage factor >= 25% */
-    public boolean usageFactorCheck() {
+    private boolean usageFactorCheck() {
         if((double)size/(double)items.length >= 0.25){
             return true;
         }else{
@@ -120,7 +120,7 @@ public class ArrayDeque<T> {
             return items[nextLast];
         }
     }
-    public void contract(){
+    private void contract(){
         T[] newArray = (T []) new Object[size * 2];
         int oldPtr = nextFirst;
         int newPtr = 1;

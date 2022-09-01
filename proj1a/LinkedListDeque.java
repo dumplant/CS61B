@@ -1,10 +1,8 @@
 public class LinkedListDeque<T> {
-    public class IntNode{
+    private class IntNode{
         public IntNode prev;
         public T item;
         public IntNode next;
-
-
         public IntNode(IntNode p, T i, IntNode n){
             prev = p;
             item = i;
@@ -20,14 +18,6 @@ public class LinkedListDeque<T> {
         sentinel.prev = sentinel;
         sentinel.next = sentinel;
         size = 0;
-    }
-
-    public LinkedListDeque(T x){
-        sentinel = new IntNode(null, null,null);
-        IntNode p = new IntNode(sentinel, x, sentinel);
-        sentinel.next = p;
-        sentinel.prev = p;
-        size = 1;
     }
 
     /** Adds an item of type T to the front of the deque.*/
@@ -100,8 +90,9 @@ public class LinkedListDeque<T> {
         if(isEmpty() || index > size - 1 || index < 0 ) {
             return null;
         }else{
-            IntNode p = sentinel.next;
-            while(p.next != sentinel && index > 0){
+            IntNode p = sentinel;
+
+            while(p.next != sentinel && index >= 0){
                 p = p.next;
                 index--;
             }
