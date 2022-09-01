@@ -14,34 +14,18 @@ public class ArrayDeque<T> {
     /** Adds an item of type T to the front of the deque.*/
     public void addFirst(T item){
         if(isFull()){
-            expand();
+            resize( size * 2);
         }
         size++;
         items[nextFirst] = item;
         nextFirst = minusOne(nextFirst);
 
     }
-    private void expand(){
-        T[] newArray = (T []) new Object[size * 2];
 
-        int oldPtr = nextFirst;
-        int newPtr = plusOne(nextFirst);
-        int count = size;
-
-
-        while(count > 0){
-            oldPtr = plusOne(oldPtr);
-            newArray[newPtr] = items[oldPtr];
-            count--;
-            newPtr++;
-        }
-        nextLast = newPtr;
-        items = newArray;
-    }
     /** Adds an item of type T to the back of the deque.*/
     public void addLast(T item) {
         if(isFull()){
-            expand();
+            resize( size * 2);
         }
         size++;
         items[nextLast] = item;
@@ -98,7 +82,7 @@ public class ArrayDeque<T> {
             return null;
         }else{
             if(!usageFactorCheck() && items.length >= 16 ){
-                contract();
+                resize( size * 2);
             }
             size--;
             nextFirst = plusOne(nextFirst);
@@ -112,29 +96,25 @@ public class ArrayDeque<T> {
         if(isEmpty()){
             return null;
         }else{
+
             if(!usageFactorCheck() && items.length >= 16 ){
-                contract();
+                resize( size * 2);
             }
             size--;
             nextLast = minusOne(nextLast);
             return items[nextLast];
         }
     }
-    private void contract(){
-        T[] newArray = (T []) new Object[size * 2];
-        int oldPtr = nextFirst;
-        int newPtr = 1;
-        int count = size;
+    private void resize(int capacity){
+        T[] newArray = (T []) new Object[capacity];
 
-        while(count > 0){
-            oldPtr = plusOne(oldPtr);
-            newArray[newPtr] = items[oldPtr];
-            count--;
-            newPtr++;
+        for (int i = 1; i <= size ; i++) {
+            newArray[i] = items[(++nextFirst)%items.length];
         }
-        nextFirst = 0;
-        nextLast = newPtr;
         items = newArray;
+        nextFirst = 0;
+        nextLast = size+1;
+//
     }
     private int plusOne(int index){
         //if the index reach the bottom of the array
