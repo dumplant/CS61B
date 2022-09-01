@@ -160,10 +160,15 @@ public class ArrayDeque<T> {
      * If no such item exists, returns null.
      * Must not alter the deque! */
     public T get(int index) {
-        if(isEmpty()) {
+        if(isEmpty() || index > size - 1 || index < 0 ) {
             return null;
         }else{
-            return items[index - nextFirst + 1];
+            int resultIndex = nextFirst;
+            while(index>=0){
+                resultIndex = plusOne(resultIndex);
+                index--;
+            }
+            return items[resultIndex];
         }
     }
 }
