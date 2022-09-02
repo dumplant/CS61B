@@ -40,6 +40,21 @@ public class IntListTest {
      * Anything can happen to A.
      */
 
+    /**
+     * Returns the reverse of the given IntList.
+     * This method is destructive. If given null
+     * as an input, returns null.
+     */
+    @Test(timeout = 1000)
+    public void testReverse(){
+        IntList L1 = IntList.of(1, 2, 3);
+        IntList L1Res = IntList.reverse(L1);
+        assertEquals(IntList.of(3, 2, 1), L1Res);
+
+        IntList L2 = null;
+        IntList L2Res = IntList.reverse(L2);
+        assertEquals(null, L2Res);
+    }
     @Test
     public void testSquareListRecursive() {
         IntList L = IntList.of(1, 2, 3);
